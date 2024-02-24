@@ -1,8 +1,8 @@
 # Project: CSUF Connect
 
-## Course: CPSC 597 Project
-
 ### Developer: Justin Kim
+
+### Course: CPSC 597 Project
 
 ### Project Description:
 
