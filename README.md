@@ -1,8 +1,14 @@
-# React + Vite
+# Project: CSUF Connect
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Course: CPSC 597 Project
 
-Currently, two official plugins are available:
+## Developer: Justin Kim
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Project Description: 'CSUF Connect’ will be a dynamic web application that will serve as the central hub for campus events. 'CSUF Connect' will empower students to seamlessly discover, plan, and engage in a multitude of campus and student events.
+
+### Technologies/Tools:
+
+1. Vite with React for frontend development
+2. Yarn for package manager
+3. Visual Studio Code for IDE
+4. Git/GitHub for version control and code repository
