@@ -1,10 +1,12 @@
 # Project: CSUF Connect
 
-# Course: CPSC 597 Project
+## Course: CPSC 597 Project
 
-## Developer: Justin Kim
+### Developer: Justin Kim
 
-### Project Description: 'CSUF Connect’ will be a dynamic web application that will serve as the central hub for campus events. 'CSUF Connect' will empower students to seamlessly discover, plan, and engage in a multitude of campus and student events.
+### Project Description:
+
+'CSUF Connect’ will be a dynamic web application that will serve as the central hub for campus events. 'CSUF Connect' will empower students to seamlessly discover, plan, and engage in a multitude of campus and student events.
 
 ### Technologies/Tools:
 
