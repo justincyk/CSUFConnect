@@ -1,11 +1,9 @@
-import EventsPreview from "../../components/events-preview/events-preview.component";
 import Slideshow from "../../components/slideshow/slideshow.component";
 
 const Home = () => {
   return (
-    <div style={{ padding: "110px 90px" }}>
+    <div>
       <Slideshow />
-      <EventsPreview />
     </div>
   );
 };
