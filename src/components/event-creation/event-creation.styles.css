@@ -1,0 +1,23 @@
+.event-creation-container {
+  background-color: white;
+  width: 50vw;
+  height: auto;
+
+  margin: 20px auto;
+  padding-bottom: 20px;
+  border: 5px solid #ff7900;
+}
+
+.event-location-container {
+  background-color: white;
+  padding: 15px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.event-date-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

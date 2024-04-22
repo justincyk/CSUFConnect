@@ -10,7 +10,7 @@ export const NavigationContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
-  border-bottom: 2px solid rgba(0, 36, 78, 0.5);
+  border-bottom: 2px solid #00244e;
   position: fixed;
   padding: 1rem 2rem;
   top: 0;

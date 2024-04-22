@@ -2,7 +2,7 @@ const Footer = () => {
   return (
     <div
       style={{
-        height: "300px",
+        height: "200px",
         width: "100%",
         borderTop: "2px solid #00244E",
         marginTop: "5px",
