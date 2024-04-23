@@ -8,9 +8,17 @@ import InputImageUpload from "../file-upload/image-upload.component";
 import Button from "@mui/material/Button";
 
 import { useSelector, useDispatch } from "react-redux";
+import { createEvent } from "../../store/event/eventSlice";
 
-import { addEvent, selectNumberOfEvents } from "../../store/event/eventSlice";
 import SelectAutoWidth from "../select-option/select-auto-width.component";
+
+const CategoryEnum = {
+  "University Event": "University",
+  "Club Event": "Club",
+  "Organization Event": "Organization",
+  "Group Meet Up": "Group",
+  "Student Hosted": "Student",
+};
 
 import "./event-creation.styles.css";
 const EventCreation = () => {
@@ -29,19 +37,29 @@ const EventCreation = () => {
   const [endDateAndTime, setEndDateAndTime] = useState(dayjs());
   const [eventImage, setEventImage] = useState(null);
 
-  const numberOfEvents = useSelector(selectNumberOfEvents);
   const dispatch = useDispatch();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    let data = {
-      eventName,
-      eventDescription,
-      startDateAndTime,
-      endDateAndTime,
-      eventImage,
+
+    let formData = new FormData();
+
+    let eventData = {
+      id: "",
+      name: eventName,
+      shortDescription: eventShortDescription,
+      description: eventDescription,
+      category: CategoryEnum[selectedCategory],
+      location: eventLocation,
+      startDateAndTime: startDateAndTime.toISOString(),
+      endDateAndTime: endDateAndTime.toISOString(),
     };
-    dispatch(addEvent());
+
+    formData.append("event", JSON.stringify(eventData));
+
+    formData.append("image", eventImage);
+
+    dispatch(createEvent(formData));
 
     setEventName("");
     setEventDescription("");
@@ -53,7 +71,7 @@ const EventCreation = () => {
   const handleImageUpload = (event) => {
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0];
-      setEventImage(URL.createObjectURL(img));
+      setEventImage(img);
     }
   };
 
@@ -138,7 +156,7 @@ const EventCreation = () => {
             id="event-location-address"
             label="Address 2"
             control="true"
-            value={eventLocation.address}
+            value={eventLocation.address2}
             onChange={(event) =>
               setEventLocation((prev) => ({
                 ...prev,
@@ -180,7 +198,7 @@ const EventCreation = () => {
             id="event-location-zipcode"
             label="ZIP Code"
             control="true"
-            value={eventLocation.state}
+            value={eventLocation.z}
             onChange={(event) =>
               setEventLocation((prev) => ({
                 ...prev,
@@ -210,7 +228,6 @@ const EventCreation = () => {
         </div>
 
         <InputImageUpload onChange={handleImageUpload} />
-        <img src={eventImage} alt="" />
 
         <Button variant="contained" onClick={handleSubmit}>
           Submit

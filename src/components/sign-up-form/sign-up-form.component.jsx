@@ -1,12 +1,14 @@
 import { useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import dayjs from "dayjs";
+
 import { DatePicker } from "@mui/x-date-pickers";
 
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 
-import { selectUser, setUser } from "../../store/user/userSlice";
+import { createUser, selectUser, setUser } from "../../store/user/userSlice";
 
 import { createAccount } from "../../utils/firebase/firebase.utils";
 
@@ -18,7 +20,7 @@ const defaultFormFields = {
   email: "",
   password: "",
   confirmPassword: "",
-  birthday: "",
+  birthday: dayjs(),
 };
 
 const SignUpForm = () => {
@@ -45,8 +47,15 @@ const SignUpForm = () => {
     }
     try {
       const user = await createAccount(email, password);
-      dispatch(setUser(user));
-      console.log(user);
+      const userToken = await user.getIdToken();
+      const userData = {
+        id: userToken,
+        firstName,
+        lastName,
+        email,
+        birthday: birthday.toISOString(),
+      };
+      dispatch(createUser(userData));
       resetFields();
     } catch (error) {
       if (error.code == "auth/email-already-inuse") {
@@ -63,8 +72,11 @@ const SignUpForm = () => {
     setFormFields({ ...formFields, [name]: value });
   };
 
+  const handleBirthdayChange = (date) => {
+    setFormFields({ ...formFields, birthday: date });
+  };
+
   const user = useSelector(selectUser);
-  console.log(user);
 
   return (
     <div className="sign-up-container">
@@ -115,12 +127,7 @@ const SignUpForm = () => {
           value={confirmPassword}
         />
 
-        <DatePicker
-          label="Birthday"
-          value={birthday}
-          onChange={handleChange}
-          name="birthday"
-        />
+        <DatePicker label="Birthday" onChange={handleBirthdayChange} />
 
         <Button type="submit">Sign Up</Button>
       </form>
