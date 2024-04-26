@@ -4,12 +4,13 @@ export const createEvent = createAsyncThunk(
   "event/createEvent",
   async (formData, thunkAPI) => {
     try {
+      console.log(formData);
       const response = await fetch("http://localhost:8080/api/event", {
         method: "POST",
-        body: formData,
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify(formData),
       });
       if (!response.ok) {
         const errorData = await response.json();

@@ -11,8 +11,6 @@ import { Slide } from "react-slideshow-image";
 const Slideshow = () => {
   const images = [img1, img2, img3, img4, img5];
 
-  console.log(images);
-
   return (
     <Slide>
       {images.map((item, index) => {

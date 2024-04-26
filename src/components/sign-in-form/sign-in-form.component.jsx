@@ -1,9 +1,8 @@
 import { useState } from "react";
 
-import { signInUser } from "../../utils/firebase/firebase.utils";
 import { useDispatch } from "react-redux";
-
-import { setUser, selectUser } from "../../store/user/userSlice";
+import { useNavigate } from "react-router-dom";
+import { setUser, selectUser, signIn } from "../../store/user/userSlice";
 
 import FormInput from "../form-input/form-input.component";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
@@ -20,6 +19,7 @@ const SignInForm = () => {
   const { email, password } = formFields;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -28,20 +28,16 @@ const SignInForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (email == "" || password == "") {
-      console.log("Email/Password cannot be empty");
+      alert("Email/Password cannot be empty");
       return;
     }
     try {
-      const { user } = await signInUser(email, password);
-      const response = await user.getIdToken();
-      const userProfile = {
-        uid: response,
-        email: user.email,
-      };
-      console.log(userProfile);
-      dispatch(setUser(userProfile));
+      const signInData = { email, password };
 
-      resetFormFields();
+      dispatch(signIn(signInData)).then(() => {
+        resetFormFields();
+        navigate("/", { replace: true });
+      });
     } catch (error) {
       switch (error.code) {
         case "auth/wrongPassword":

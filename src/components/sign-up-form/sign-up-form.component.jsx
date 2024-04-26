@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import dayjs from "dayjs";
 
@@ -29,6 +30,7 @@ const SignUpForm = () => {
     formFields;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const resetFields = () => {
     setFormFields(defaultFormFields);
@@ -55,8 +57,10 @@ const SignUpForm = () => {
         email,
         birthday: birthday.toISOString(),
       };
-      dispatch(createUser(userData));
-      resetFields();
+      dispatch(createUser(userData)).then(() => {
+        resetFields();
+        navigate("/", { replace: true });
+      });
     } catch (error) {
       if (error.code == "auth/email-already-inuse") {
         alert("Cannot create user, email already in use");

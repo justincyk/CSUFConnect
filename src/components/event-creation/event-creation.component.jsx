@@ -20,19 +20,21 @@ const CategoryEnum = {
   "Student Hosted": "Student",
 };
 
+const initialLocation = {
+  address: "",
+  address2: "",
+  city: "",
+  state: "",
+  zipCode: "",
+};
+
 import "./event-creation.styles.css";
 const EventCreation = () => {
   const [eventName, setEventName] = useState("");
   const [eventShortDescription, setEventShortDescription] = useState("");
   const [eventDescription, setEventDescription] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [eventLocation, setEventLocation] = useState({
-    address: "",
-    address2: "",
-    city: "",
-    state: "",
-    zipCode: "",
-  });
+  const [eventLocation, setEventLocation] = useState(initialLocation);
   const [startDateAndTime, setStartDateAndTime] = useState(dayjs());
   const [endDateAndTime, setEndDateAndTime] = useState(dayjs());
   const [eventImage, setEventImage] = useState(null);
@@ -42,7 +44,22 @@ const EventCreation = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    let formData = new FormData();
+    if (
+      eventName.trim() === "" ||
+      eventShortDescription.trim() === "" ||
+      eventDescription.trim() === "" ||
+      selectedCategory.trim() === "" ||
+      eventLocation.address.trim() === "" ||
+      eventLocation.city.trim() === "" ||
+      eventLocation.state.trim() === "" ||
+      eventLocation.zipCode.trim() === "" ||
+      startDateAndTime >= endDateAndTime
+    ) {
+      alert(
+        "Please fill out all required fields and ensure the end date and time is later than the start date and time"
+      );
+      return;
+    }
 
     let eventData = {
       id: "",
@@ -55,17 +72,27 @@ const EventCreation = () => {
       endDateAndTime: endDateAndTime.toISOString(),
     };
 
-    formData.append("event", JSON.stringify(eventData));
+    // if (eventImage != null) {
+    //   console.log(eventImage);
+    //   formData.append("image", eventImage);
+    // }
 
-    formData.append("image", eventImage);
-
-    dispatch(createEvent(formData));
+    dispatch(createEvent(eventData));
 
     setEventName("");
     setEventDescription("");
     setStartDateAndTime(dayjs());
     setEndDateAndTime(dayjs());
     setEventImage(null);
+    setEventLocation({
+      address: "",
+      address2: "",
+      city: "",
+      state: "",
+      zipCode: "",
+    });
+    setStartDateAndTime(dayjs());
+    setEndDateAndTime(dayjs());
   };
 
   const handleImageUpload = (event) => {
@@ -98,6 +125,7 @@ const EventCreation = () => {
           onChange={(event) => setEventName(event.target.value)}
           sx={{ width: "300px" }}
           inputProps={{ maxLength: 30 }}
+          required={true}
         />
         <TextField
           id="event-short-description"
@@ -109,6 +137,7 @@ const EventCreation = () => {
           maxRows={4}
           sx={{ width: "300px" }}
           inputProps={{ maxLength: 80 }}
+          required={true}
         />
         <TextField
           id="event-description"
@@ -120,6 +149,7 @@ const EventCreation = () => {
           maxRows={4}
           sx={{ width: "300px" }}
           inputProps={{ maxLength: 80 }}
+          required={true}
         />
 
         <SelectAutoWidth
@@ -131,6 +161,7 @@ const EventCreation = () => {
             "Group Meet Up",
             "Student Hosted",
           ]}
+          required={true}
           onChange={(value) => {
             setSelectedCategory(value);
           }}
@@ -151,6 +182,7 @@ const EventCreation = () => {
             }
             sx={{ width: "300px" }}
             inputProps={{ maxLength: 80 }}
+            required={true}
           />
           <TextField
             id="event-location-address"
@@ -171,6 +203,7 @@ const EventCreation = () => {
             label="City"
             control="true"
             value={eventLocation.city}
+            required={true}
             onChange={(event) =>
               setEventLocation((prev) => ({
                 ...prev,
@@ -184,6 +217,7 @@ const EventCreation = () => {
             id="event-location-state"
             label="State"
             control="true"
+            required={true}
             value={eventLocation.state}
             onChange={(event) =>
               setEventLocation((prev) => ({
@@ -198,7 +232,7 @@ const EventCreation = () => {
             id="event-location-zipcode"
             label="ZIP Code"
             control="true"
-            value={eventLocation.z}
+            value={eventLocation.zipCode}
             onChange={(event) =>
               setEventLocation((prev) => ({
                 ...prev,
@@ -207,6 +241,7 @@ const EventCreation = () => {
             }
             sx={{ width: "300px" }}
             inputProps={{ maxLength: 80 }}
+            required={true}
           />
         </div>
 
@@ -216,6 +251,7 @@ const EventCreation = () => {
             label="Start Date and Time"
             disablePast
             value={startDateAndTime}
+            required={true}
             onChange={(newValue) => setStartDateAndTime(newValue)}
           />
           <DateTimePicker
@@ -223,6 +259,7 @@ const EventCreation = () => {
             disablePast
             value={endDateAndTime}
             minDateTime={startDateAndTime}
+            required={true}
             onChange={(newValue) => setEndDateAndTime(newValue)}
           />
         </div>

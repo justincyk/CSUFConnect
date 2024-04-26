@@ -14,19 +14,20 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 import CSUFConnectLogo from "../../assets/logos/CSUFConnectLogo3.svg?react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { selectUser } from "../../store/user/userSlice";
 import Authentication from "../authentication/authentication.component";
-import { logoffUser } from "../../store/user/userSlice";
+import { logOffUser } from "../../store/user/userSlice";
 
 const Navigation = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSignOut = async () => {
     try {
-      await signOutUser();
-      dispatch(logoffUser);
+      dispatch(logOffUser());
+      navigate("/authentication");
     } catch (error) {
       console.log(error.message);
     }
