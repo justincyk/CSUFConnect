@@ -60,7 +60,7 @@ const SignInForm = () => {
   return (
     <SignInContainer>
       <h2>Already Have an Account?</h2>
-      <span>Sign in with your email and password</span>
+      <span>Sign in with your CSUF email and password</span>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Email"

@@ -7,9 +7,10 @@ import {
 const EventCategories = ({ category, events }) => {
   return (
     <CategoryPreviewContainer>
-      <h2>
+      <div>
+        <h2>{category}</h2>
         <Title to={category}>{category.toUpperCase()}</Title>
-      </h2>
+      </div>
       <Preview>
         {events
           .filter((_, idx) => idx < 4)

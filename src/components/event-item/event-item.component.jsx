@@ -40,7 +40,7 @@ export default function EventItemCard({
     navigate(`/${eventID}`);
   };
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: "270px", minWidth: "270px" }}>
       <CardHeader
         title={eventName}
         subheader={eventDate}
@@ -52,6 +52,7 @@ export default function EventItemCard({
         height="194"
         image={imgURL}
         alt="Paella dish"
+        style={{ cursor: "pointer" }}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">

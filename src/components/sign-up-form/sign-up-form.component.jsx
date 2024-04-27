@@ -44,7 +44,11 @@ const SignUpForm = () => {
       return;
     }
     if (email.split("@")[1] !== "csu.fullerton.edu") {
-      alert("Only CSUF emails can be used to create an account!");
+      alert("Only CSUF emails can be used to create an account");
+      return;
+    }
+    if (birthday >= dayjs().subtract(18, "year")) {
+      alert("You have to be 18 years or older to create an account");
       return;
     }
     try {
@@ -62,17 +66,17 @@ const SignUpForm = () => {
         navigate("/", { replace: true });
       });
     } catch (error) {
-      if (error.code == "auth/email-already-inuse") {
+      if (error.code == "auth/email-already-in-use") {
         alert("Cannot create user, email already in use");
       } else {
-        console.log("user creation encountered an error", error);
+        console.log("User creation encountered an error", error);
+        console.log("error code: ", error.code);
       }
     }
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    // [name] makes it so that the value of name is put in place rather than name itself
     setFormFields({ ...formFields, [name]: value });
   };
 
@@ -85,7 +89,7 @@ const SignUpForm = () => {
   return (
     <div className="sign-up-container">
       <h2>Don't Have an Account?</h2>
-      <span>Sign up with your email and password</span>
+      <span>Sign up with your CSUF email and password</span>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="First Name"
@@ -131,7 +135,11 @@ const SignUpForm = () => {
           value={confirmPassword}
         />
 
-        <DatePicker label="Birthday" onChange={handleBirthdayChange} />
+        <DatePicker
+          label="Birthday"
+          onChange={handleBirthdayChange}
+          sx={{ marginBottom: "35px" }}
+        />
 
         <Button type="submit">Sign Up</Button>
       </form>

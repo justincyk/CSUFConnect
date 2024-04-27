@@ -2,7 +2,7 @@ import EventsSlideshow from "../../components/events-slideshow/events-slideshow.
 
 const EventCategoryPreview = ({ eventCategoriesMap }) => {
   return (
-    <div style={{ marginTop: "110px" }}>
+    <div style={{ marginTop: "150px", marginBottom: "100px" }}>
       {Object.keys(eventCategoriesMap).map((category, index) => {
         const events = eventCategoriesMap[category];
         return (

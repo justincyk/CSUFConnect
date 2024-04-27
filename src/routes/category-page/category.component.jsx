@@ -4,20 +4,30 @@ import { useSelector } from "react-redux";
 
 import Spinner from "../../components/spinner/spinner.component";
 
-import { CategoryTitle, CategoryContainer } from "./category.styles";
+import { CategoryContainer, CategoryTitle } from "./category.styles";
+
+import CategoryEvents from "../../components/category-events/category-events.component";
+const items = [
+  {
+    eventName: "event 1",
+    eventShortDescription: "This is a short description",
+    eventDate: "August 1, 1990",
+  },
+  {
+    eventName: "event 2",
+    eventShortDescription: "This is a short description",
+    eventDate: "August 1, 1990",
+  },
+  {
+    eventName: "event 3",
+    eventShortDescription: "This is a short description",
+    eventDate: "August 1, 1990",
+  },
+];
 
 const Category = () => {
   const { category } = useParams();
-  //   const categoriesMap = useSelector(selectCategoriesMap);
-  //   const isLoading = useSelector(selectCategoriesIsLoading);
-  //   //  categoriesMap[category] will be initially an empty object so we can assign it to products
-  //   const [products, setProducts] = useState(categoriesMap[category]);
 
-  //   useEffect(() => {
-  //     setProducts(categoriesMap[category]);
-  //     console.log("useEffect category ran");
-  //     console.log(`products is set to: ${products}`);
-  //   }, [category, categoriesMap]);
   return (
     // <Fragment>
     //   <CategoryTitle>{category.toUpperCase()}</CategoryTitle>
@@ -35,7 +45,11 @@ const Category = () => {
     //     </CategoryContainer>
     //   )}
     // </Fragment>
-    <div style={{ marginTop: "120px" }}>{category}</div>
+    <CategoryContainer>
+      <CategoryTitle>{category} Events</CategoryTitle>
+      <CategoryEvents items={items} />
+      <button>Load More Events</button>
+    </CategoryContainer>
   );
 };
 

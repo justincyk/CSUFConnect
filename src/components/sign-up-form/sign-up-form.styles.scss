@@ -1,7 +1,13 @@
 .sign-up-container {
   display: flex;
   flex-direction: column;
-  width: 380px;
+
+  width: 450px;
+  height: 770px;
+  background-color: white;
+  padding: 20px 40px;
+  border: 2px solid #ff7900;
+  border-radius: 10px;
 
   h2 {
     margin: 10px 0;

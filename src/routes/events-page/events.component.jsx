@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Category from "../category/category.component";
+import Category from "../category-page/category.component";
 import EventCategoryPreview from "../../components/event-category-preview/event-category-preview.component";
 
 const eventCategoriesMap = {
@@ -18,6 +18,21 @@ const eventCategoriesMap = {
     },
     {
       eventName: "event 3",
+      eventShortDescription: "This is a short description",
+      eventDate: "August 1, 1990",
+    },
+    {
+      eventName: "event 4",
+      eventShortDescription: "This is a short description",
+      eventDate: "August 1, 1990",
+    },
+    {
+      eventName: "event 5",
+      eventShortDescription: "This is a short description",
+      eventDate: "August 1, 1990",
+    },
+    {
+      eventName: "event 6",
       eventShortDescription: "This is a short description",
       eventDate: "August 1, 1990",
     },

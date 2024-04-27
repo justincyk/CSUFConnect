@@ -56,10 +56,12 @@ const Navigation = () => {
             id="outlined-basic"
             label="Search Event"
             variant="outlined"
-            style={{ width: "25vw" }}
+            style={{
+              width: "25vw",
+            }}
           />
 
-          <Button variant="contained" style={{ width: "5vw" }}>
+          <Button variant="contained" style={{ width: "5vw", height: "50px" }}>
             Search
           </Button>
         </Box>

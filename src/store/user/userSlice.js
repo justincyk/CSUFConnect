@@ -98,7 +98,7 @@ export const userSlice = createSlice({
       .addCase(signIn.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload.message;
-        alert(action.payload.message);
+        alert("Invalid Credentials");
       });
   },
 });

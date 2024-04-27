@@ -39,12 +39,16 @@ const EventsPreview = () => {
             alignItems: "center",
           }}
         >
-          <span>
+          <span style={{ color: "#00244E" }}>
             Discover CSUF events hosted by students, clubs, and organizations
           </span>
           <Button
             variant="outlined"
-            style={{ cursor: "pointer" }}
+            style={{
+              cursor: "pointer",
+              color: "#00244E",
+              border: "1px solid #00244E",
+            }}
             onClick={goToEventsPageHandler}
           >
             See More Events

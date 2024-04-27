@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 
 import { useSelector, useDispatch } from "react-redux";
 import { createEvent } from "../../store/event/eventSlice";
+import { selectUser } from "../../store/user/userSlice";
 
 import SelectAutoWidth from "../select-option/select-auto-width.component";
 
@@ -28,6 +29,14 @@ const initialLocation = {
   zipCode: "",
 };
 
+function isValidZipCode(zipCode) {
+  const zip = parseInt(zipCode);
+  if (isNaN(zip)) {
+    return false;
+  }
+  return zip >= 10000 && zip <= 99999;
+}
+
 import "./event-creation.styles.css";
 const EventCreation = () => {
   const [eventName, setEventName] = useState("");
@@ -38,6 +47,7 @@ const EventCreation = () => {
   const [startDateAndTime, setStartDateAndTime] = useState(dayjs());
   const [endDateAndTime, setEndDateAndTime] = useState(dayjs());
   const [eventImage, setEventImage] = useState(null);
+  const loggedInUser = useSelector(selectUser);
 
   const dispatch = useDispatch();
 
@@ -52,11 +62,20 @@ const EventCreation = () => {
       eventLocation.address.trim() === "" ||
       eventLocation.city.trim() === "" ||
       eventLocation.state.trim() === "" ||
-      eventLocation.zipCode.trim() === "" ||
-      startDateAndTime >= endDateAndTime
+      eventLocation.zipCode.trim() === ""
     ) {
+      alert("Please fill out all required fields");
+      return;
+    }
+
+    if (!isValidZipCode(location.zipCode)) {
+      alert("Please make sure ZIP code is correct.");
+      return;
+    }
+
+    if (startDateAndTime >= endDateAndTime) {
       alert(
-        "Please fill out all required fields and ensure the end date and time is later than the start date and time"
+        "Please make sure the end date and time is later than the start date and time."
       );
       return;
     }
@@ -70,6 +89,7 @@ const EventCreation = () => {
       location: eventLocation,
       startDateAndTime: startDateAndTime.toISOString(),
       endDateAndTime: endDateAndTime.toISOString(),
+      student_id: loggedInUser.id,
     };
 
     // if (eventImage != null) {
@@ -81,6 +101,7 @@ const EventCreation = () => {
 
     setEventName("");
     setEventDescription("");
+    setEventShortDescription("");
     setStartDateAndTime(dayjs());
     setEndDateAndTime(dayjs());
     setEventImage(null);
@@ -104,7 +125,7 @@ const EventCreation = () => {
 
   return (
     <div className="event-creation-container">
-      <h2>Event Form</h2>
+      <p>Event Information</p>
       <Box
         component={"form"}
         onSubmit={handleSubmit}
@@ -129,7 +150,7 @@ const EventCreation = () => {
         />
         <TextField
           id="event-short-description"
-          label="Short Event Description (Hook)"
+          label="Short Event Description"
           control="true"
           multiline
           value={eventShortDescription}
@@ -162,6 +183,7 @@ const EventCreation = () => {
             "Student Hosted",
           ]}
           required={true}
+          defaultValue={"University Event"}
           onChange={(value) => {
             setSelectedCategory(value);
           }}

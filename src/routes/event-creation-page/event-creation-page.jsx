@@ -1,15 +1,10 @@
 import EventCreation from "../../components/event-creation/event-creation.component";
+import "./event-creation-page.scss";
 
 const EventCreationPage = () => {
   return (
-    <div
-      style={{
-        margin: "110px 50px",
-        padding: "20px 20px",
-        backgroundColor: "#00244E",
-      }}
-    >
-      <h1>Event Creation Page</h1>
+    <div className="event-creation-page-container">
+      <h1>Event Form</h1>
       <EventCreation />
     </div>
   );

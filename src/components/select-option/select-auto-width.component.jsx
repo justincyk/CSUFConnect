@@ -5,7 +5,12 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-export default function SelectAutoWidth({ label, options, onChange }) {
+export default function SelectAutoWidth({
+  label,
+  options,
+  onChange,
+  defaultValue,
+}) {
   const [val, setVal] = useState("");
 
   const handleChange = (event) => {
@@ -26,6 +31,7 @@ export default function SelectAutoWidth({ label, options, onChange }) {
           autoWidth
           label={label}
           required={true}
+          defaultValue={defaultValue}
         >
           {options.map((title) => (
             <MenuItem value={title}>{title}</MenuItem>

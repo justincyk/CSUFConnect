@@ -3,7 +3,7 @@ import Slideshow from "../../components/slideshow/slideshow.component";
 
 const Home = () => {
   return (
-    <div style={{ padding: "110px 90px" }}>
+    <div style={{ paddingTop: "110px" }}>
       <Slideshow />
       <EventsPreview />
     </div>

@@ -1,34 +1,72 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import EventItemCard from "../event-item/event-item.component";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+
+import "./events-slideshow.styles.scss";
 
 const EventsSlideshow = ({ category, events }) => {
-  const [currentEventsIndexes, setCurrentEventsIndexes] = useState(
-    events.length < 3 ? events.length : 2
-  );
+  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+  const [numOfCards, setNumOfCards] = useState(0);
+  const [currentEventsIndexes, setCurrentEventsIndexes] = useState(0);
+
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const updateSize = () => {
+      const rect = containerRef.current.getBoundingClientRect();
+      setContainerSize({ width: rect.width, height: rect.height });
+    };
+
+    updateSize();
+
+    window.addEventListener("resize", updateSize);
+    return () => {
+      window.removeEventListener("resize", updateSize);
+    };
+  }, []);
+
+  useEffect(() => {
+    setNumOfCards(Math.floor(containerSize.width / 370));
+  }, [containerSize.width]);
+
+  const handleToggleBack = () => {
+    setCurrentEventsIndexes((prev) => Math.max(0, prev - 1));
+  };
+
+  const handleToggleForward = () => {
+    setCurrentEventsIndexes((prev) =>
+      Math.min(prev + 1, events.length - numOfCards)
+    );
+  };
+
   return (
-    <div>
-      <Link
-        to={category}
-        style={{ cursor: "pointer", textDecoration: "none", color: "black" }}
-      >
-        {category.toUpperCase()}
-      </Link>
+    <div className="events-preview-container">
       <div
         style={{
           display: "flex",
-          justifyContent: "center",
-          gap: "30px",
+          justifyContent: "space-between",
           alignItems: "center",
+          width: "100%",
         }}
       >
+        <h2 style={{ fontSize: "25px" }}>{category.toUpperCase()}</h2>
+        <Link className="category-link" to={category}>
+          See More {category} Events
+        </Link>
+      </div>
+      <div className="events-container" ref={containerRef}>
+        <ArrowBackIosIcon
+          sx={{ fontSize: 40, cursor: "pointer", color: "#00244E" }}
+          onClick={handleToggleBack}
+          className={currentEventsIndexes <= 0 ? "disabled" : ""}
+        />
         {events
-          .filter(
-            (_, index) =>
-              index >= currentEventsIndexes - 2 &&
-              index <= currentEventsIndexes &&
-              index >= 0
+          .slice(
+            currentEventsIndexes,
+            Math.min(currentEventsIndexes + numOfCards, events.length)
           )
           .map((event, index) => (
             <EventItemCard
@@ -38,6 +76,13 @@ const EventsSlideshow = ({ category, events }) => {
               key={index}
             />
           ))}
+        <ArrowForwardIosIcon
+          sx={{ fontSize: 40, cursor: "pointer", color: "#00244E" }}
+          onClick={handleToggleForward}
+          className={
+            currentEventsIndexes >= events.length - numOfCards ? "disabled" : ""
+          }
+        />
       </div>
     </div>
   );

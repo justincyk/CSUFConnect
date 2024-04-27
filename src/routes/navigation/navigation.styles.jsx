@@ -6,11 +6,11 @@ import TextField from "@mui/material/TextField";
 
 export const NavigationContainer = styled.div`
   height: 100px;
-  width: 99%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
-  border-bottom: 2px solid #00244e;
+  border-bottom: 2.5px solid #00244e;
   position: fixed;
   padding: 1rem 2rem;
   top: 0;
@@ -28,6 +28,7 @@ export const LogoContainer = styled(Link)`
   width: 300px;
   padding: 10px;
   justify-content: center;
+  color: #00244e;
 `;
 
 export const NavLinks = styled.div`
