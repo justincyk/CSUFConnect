@@ -63,7 +63,9 @@ const EventsPreview = () => {
             eventShortDescription={
               "hello there this is a test description for this card"
             }
+            eventID={index + 1}
             key={index}
+            eventCategory={"Organization"}
           />
         ))}
       </EventsItemContainer>

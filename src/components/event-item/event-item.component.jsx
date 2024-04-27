@@ -34,11 +34,14 @@ export default function EventItemCard({
   eventDate,
   eventShortDescription,
   imgURL,
+  eventCategory,
 }) {
   const navigate = useNavigate();
+
   const goToEventHandler = () => {
-    navigate(`/${eventID}`);
+    navigate(`/events/${eventCategory}/${eventID}`);
   };
+
   return (
     <Card sx={{ maxWidth: "270px", minWidth: "270px" }}>
       <CardHeader
@@ -52,6 +55,7 @@ export default function EventItemCard({
         height="194"
         image={imgURL}
         alt="Paella dish"
+        onClick={goToEventHandler}
         style={{ cursor: "pointer" }}
       />
       <CardContent>

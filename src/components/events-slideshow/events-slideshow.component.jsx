@@ -52,8 +52,18 @@ const EventsSlideshow = ({ category, events }) => {
           width: "100%",
         }}
       >
-        <h2 style={{ fontSize: "25px" }}>{category.toUpperCase()}</h2>
-        <Link className="category-link" to={category}>
+        <h2 style={{ fontSize: "25px", color: "#00244E" }}>
+          {category.toUpperCase()}
+        </h2>
+        <Link
+          className="category-link"
+          to={category}
+          style={{
+            color: "white",
+            backgroundColor: "#00244E",
+            marginRight: "20px",
+          }}
+        >
           See More {category} Events
         </Link>
       </div>

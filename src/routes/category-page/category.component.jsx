@@ -10,16 +10,85 @@ import CategoryEvents from "../../components/category-events/category-events.com
 const items = [
   {
     eventName: "event 1",
+    eventId: "1",
     eventShortDescription: "This is a short description",
     eventDate: "August 1, 1990",
   },
   {
     eventName: "event 2",
+    eventId: "1",
     eventShortDescription: "This is a short description",
     eventDate: "August 1, 1990",
   },
   {
     eventName: "event 3",
+    eventId: "1",
+    eventShortDescription: "This is a short description",
+    eventDate: "August 1, 1990",
+  },
+  {
+    eventName: "event 1",
+    eventId: "1",
+    eventShortDescription: "This is a short description",
+    eventDate: "August 1, 1990",
+  },
+  {
+    eventName: "event 2",
+    eventId: "1",
+    eventShortDescription: "This is a short description",
+    eventDate: "August 1, 1990",
+  },
+  {
+    eventName: "event 3",
+    eventId: "1",
+    eventShortDescription: "This is a short description",
+    eventDate: "August 1, 1990",
+  },
+  {
+    eventName: "event 3",
+    eventId: "1",
+    eventShortDescription: "This is a short description",
+    eventDate: "August 1, 1990",
+  },
+  {
+    eventName: "event 1",
+    eventId: "1",
+    eventShortDescription: "This is a short description",
+    eventDate: "August 1, 1990",
+  },
+  {
+    eventName: "event 2",
+    eventId: "1",
+    eventShortDescription: "This is a short description",
+    eventDate: "August 1, 1990",
+  },
+  {
+    eventName: "event 3",
+    eventId: "1",
+    eventShortDescription: "This is a short description",
+    eventDate: "August 1, 1990",
+  },
+  {
+    eventName: "event 3",
+    eventId: "1",
+    eventShortDescription: "This is a short description",
+    eventDate: "August 1, 1990",
+  },
+  {
+    eventName: "event 1",
+    eventId: "1",
+    eventShortDescription: "This is a short description",
+    eventDate: "August 1, 1990",
+  },
+  {
+    eventName: "event 2",
+    eventId: "1",
+    eventShortDescription: "This is a short description",
+    eventDate: "August 1, 1990",
+  },
+  {
+    eventName: "event 3",
+    eventId: "1",
     eventShortDescription: "This is a short description",
     eventDate: "August 1, 1990",
   },
@@ -27,28 +96,39 @@ const items = [
 
 const Category = () => {
   const { category } = useParams();
+  const [currentIndex, setCurrentIndex] = useState(
+    items.length < 5 ? items.length - 1 : 5
+  );
 
   return (
-    // <Fragment>
-    //   <CategoryTitle>{category.toUpperCase()}</CategoryTitle>
-    //   {isLoading ? (
-    //     <Spinner />
-    //   ) : (
-    //     <CategoryContainer>
-    //       {/* Only render products if products is defined. A safeguard as categoriesMap object is retrieved from an async function. */}
-    //       {/* If you have components that rely on a async fetched code, then you need to put in safeguards
-    //     so that you only render your components only if the actual data is present*/}
-    //       {products &&
-    //         products.map((product) => {
-    //           return <ProductCard key={product.id} product={product} />;
-    //         })}
-    //     </CategoryContainer>
-    //   )}
-    // </Fragment>
     <CategoryContainer>
       <CategoryTitle>{category} Events</CategoryTitle>
-      <CategoryEvents items={items} />
-      <button>Load More Events</button>
+      <CategoryEvents
+        items={items.slice(0, currentIndex)}
+        category={category}
+      />
+      <button
+        onClick={() =>
+          setCurrentIndex((prev) => Math.min(items.length - 1, prev + 5))
+        }
+        style={{
+          backgroundColor:
+            currentIndex === items.length - 1 ? "#cccccc" : "#00244E",
+          color: currentIndex === items.length - 1 ? "black" : "white",
+          cursor: currentIndex === items.length - 1 ? "not-allowed" : "pointer",
+          border: "none",
+          padding: "10px 20px",
+          borderRadius: "5px",
+          fontSize: "16px",
+          marginTop: "20px",
+          border: "1px solid black",
+        }}
+        disabled={currentIndex === items.length - 1}
+      >
+        {currentIndex === items.length - 1
+          ? "No More Events"
+          : "Load More Events"}
+      </button>
     </CategoryContainer>
   );
 };

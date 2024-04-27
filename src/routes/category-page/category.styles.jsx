@@ -7,6 +7,7 @@ export const CategoryTitle = styled.h2`
 `;
 
 export const CategoryContainer = styled.div`
+  padding: 5px 50px;
   margin-top: 120px;
   height: auto;
   padding-bottom: 50px;

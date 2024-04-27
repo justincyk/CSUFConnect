@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Category from "../category-page/category.component";
 import EventCategoryPreview from "../../components/event-category-preview/event-category-preview.component";
+import EventDescriptionPage from "../event-description-page/event-description-page.component";
 
 const eventCategoriesMap = {
   University: [
@@ -117,7 +118,7 @@ const Events = () => {
         }
       />
       <Route path=":category" element={<Category />} />
-      <Route path=":category/:eventId" element={<Event />} />
+      <Route path=":category/:eventId" element={<EventDescriptionPage />} />
     </Routes>
   );
 };
