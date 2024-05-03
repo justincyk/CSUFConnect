@@ -33,8 +33,10 @@ export default function SelectAutoWidth({
           required={true}
           defaultValue={defaultValue}
         >
-          {options.map((title) => (
-            <MenuItem value={title}>{title}</MenuItem>
+          {options.map((title, index) => (
+            <MenuItem value={title} key={index}>
+              {title}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>

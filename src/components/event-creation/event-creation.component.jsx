@@ -8,18 +8,12 @@ import InputImageUpload from "../file-upload/image-upload.component";
 import Button from "@mui/material/Button";
 
 import { useSelector, useDispatch } from "react-redux";
-import { createEvent } from "../../store/event/eventSlice";
+import { createEvent, getEvents } from "../../store/event/eventSlice";
 import { selectUser } from "../../store/user/userSlice";
 
 import SelectAutoWidth from "../select-option/select-auto-width.component";
 
-const CategoryEnum = {
-  "University Event": "University",
-  "Club Event": "Club",
-  "Organization Event": "Organization",
-  "Group Meet Up": "Group",
-  "Student Hosted": "Student",
-};
+import { CategoryEnum } from "./categoryEnum";
 
 const initialLocation = {
   address: "",
@@ -68,7 +62,7 @@ const EventCreation = () => {
       return;
     }
 
-    if (!isValidZipCode(location.zipCode)) {
+    if (!isValidZipCode(eventLocation.zipCode)) {
       alert("Please make sure ZIP code is correct.");
       return;
     }
@@ -90,14 +84,16 @@ const EventCreation = () => {
       startDateAndTime: startDateAndTime.toISOString(),
       endDateAndTime: endDateAndTime.toISOString(),
       student_id: loggedInUser.id,
+      eventImage: eventImage != null ? eventImage : null,
     };
 
-    // if (eventImage != null) {
-    //   console.log(eventImage);
-    //   formData.append("image", eventImage);
-    // }
-
-    dispatch(createEvent(eventData));
+    dispatch(createEvent(eventData))
+      .then((result) => {
+        if (result.payload) {
+          dispatch(getEvents());
+        }
+      })
+      .catch((error) => console.error("Error creatine event: ", error));
 
     setEventName("");
     setEventDescription("");

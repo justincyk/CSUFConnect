@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import EventItemCard from "../event-item/event-item.component";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { formatDate } from "../date-format/formatDate";
 
 import "./events-slideshow.styles.scss";
 
@@ -67,25 +68,31 @@ const EventsSlideshow = ({ category, events }) => {
           See More {category} Events
         </Link>
       </div>
+
       <div className="events-container" ref={containerRef}>
         <ArrowBackIosIcon
           sx={{ fontSize: 40, cursor: "pointer", color: "#00244E" }}
           onClick={handleToggleBack}
           className={currentEventsIndexes <= 0 ? "disabled" : ""}
         />
-        {events
-          .slice(
-            currentEventsIndexes,
-            Math.min(currentEventsIndexes + numOfCards, events.length)
-          )
-          .map((event, index) => (
-            <EventItemCard
-              eventName={event.eventName}
-              eventShortDescription={event.eventShortDescription}
-              eventDate={event.eventDate}
-              key={index}
-            />
-          ))}
+        {events && events.length > 0 ? (
+          events
+            .slice(
+              currentEventsIndexes,
+              Math.min(currentEventsIndexes + numOfCards, events.length)
+            )
+            .map((event, index) => (
+              <EventItemCard
+                eventName={event.name}
+                eventShortDescription={event.eventShortDescription}
+                eventDate={formatDate(event.startDateAndTime)}
+                key={event.id}
+                imgURL={event.image}
+              />
+            ))
+        ) : (
+          <div>No Current Events</div>
+        )}
         <ArrowForwardIosIcon
           sx={{ fontSize: 40, cursor: "pointer", color: "#00244E" }}
           onClick={handleToggleForward}

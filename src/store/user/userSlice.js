@@ -79,12 +79,10 @@ export const userSlice = createSlice({
       .addCase(createUser.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.userAccount = action.payload;
-        console.log(action.payload);
       })
       .addCase(createUser.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload.message;
-        alert(action.payload.message);
       })
       .addCase(signIn.pending, (state) => {
         state.status = "loading";
@@ -93,7 +91,6 @@ export const userSlice = createSlice({
       .addCase(signIn.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.userAccount = action.payload;
-        console.log(action.payload);
       })
       .addCase(signIn.rejected, (state, action) => {
         state.status = "failed";

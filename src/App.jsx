@@ -2,11 +2,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 import { useState, useEffect } from "react";
-import { useSelector, Provider } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { Route, Routes, Navigate } from "react-router-dom";
-
-import { getCurrentUser } from "./utils/firebase/firebase.utils";
 
 import "./App.css";
 import "@fontsource/roboto/300.css";
@@ -20,12 +18,18 @@ import EventCreationPage from "./routes/event-creation-page/event-creation-page"
 import Authentication from "./routes/authentication/authentication.component";
 import Events from "./routes/events-page/events.component";
 import { selectUser } from "./store/user/userSlice";
+import { getEvents, selectEventStatus } from "./store/event/eventSlice";
 
 function App() {
   const user = useSelector(selectUser);
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const eventStatus = useSelector(selectEventStatus);
 
-  if (loading) {
+  useEffect(() => {
+    dispatch(getEvents());
+  }, []);
+
+  if (eventStatus === "loading") {
     return <div>Loading...</div>;
   }
 

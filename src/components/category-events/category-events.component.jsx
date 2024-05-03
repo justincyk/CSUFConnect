@@ -1,18 +1,19 @@
 import { EventsItemContainer } from "./category-events.styles";
 import EventItemCard from "../event-item/event-item.component";
 
+import { formatDate } from "../../components/date-format/formatDate";
+
 const CategoryEvents = ({ items, category }) => {
   return (
     <EventsItemContainer>
-      {items.map((item, index) => (
+      {items.map((item) => (
         <EventItemCard
-          eventName={`test ${index + 1}`}
-          eventID={index + 1}
-          eventDate={"August 1, 1990"}
-          eventShortDescription={
-            "hello there this is a test description for this card"
-          }
-          key={index}
+          eventName={item.name}
+          eventID={item.id}
+          eventDate={formatDate(item.startDateAndTime)}
+          eventShortDescription={item.shortDescription}
+          key={item.id}
+          imgURL={item.image}
           eventCategory={category}
         />
       ))}

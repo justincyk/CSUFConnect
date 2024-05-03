@@ -54,7 +54,7 @@ export default function EventItemCard({
         component="img"
         height="194"
         image={imgURL}
-        alt="Paella dish"
+        alt={eventShortDescription ?? "Event Picture"}
         onClick={goToEventHandler}
         style={{ cursor: "pointer" }}
       />
