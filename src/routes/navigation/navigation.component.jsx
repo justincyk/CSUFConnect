@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
 
 import {
   NavigationContainer,
@@ -18,11 +19,20 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { selectUser } from "../../store/user/userSlice";
 import Authentication from "../authentication/authentication.component";
 import { logOffUser } from "../../store/user/userSlice";
+import EventSelect from "./events-autocomplete.component";
+import zIndex from "@mui/material/styles/zIndex";
 
 const Navigation = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [eventSearch, setEventSearch] = useState(null);
+
+  const onEventSelect = (event) => {
+    if (event != null) {
+      setEventSearch(event);
+    }
+  };
 
   const handleSignOut = async () => {
     try {
@@ -32,9 +42,15 @@ const Navigation = () => {
       console.log(error.message);
     }
   };
+
+  const handleSearch = () => {
+    if (eventSearch != null) {
+      navigate(`/events/${eventSearch.category}/${eventSearch.id}`);
+    }
+  };
   return (
     <>
-      <NavigationContainer style={{}}>
+      <NavigationContainer>
         <LogoContainer to="/">
           <CSUFConnectLogo />
         </LogoContainer>
@@ -52,16 +68,13 @@ const Navigation = () => {
             width: "100%",
           }}
         >
-          <TextField
-            id="outlined-basic"
-            label="Search Event"
-            variant="outlined"
-            style={{
-              width: "25vw",
-            }}
-          />
+          <EventSelect onEventSelect={onEventSelect} />
 
-          <Button variant="contained" style={{ width: "5vw", height: "50px" }}>
+          <Button
+            variant="contained"
+            style={{ width: "5vw", height: "50px" }}
+            onClick={handleSearch}
+          >
             Search
           </Button>
         </Box>

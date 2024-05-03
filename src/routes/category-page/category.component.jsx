@@ -70,7 +70,9 @@ const Category = () => {
   );
 
   useEffect(() => {
-    setCurrentIndex(data.length < 5 ? data.length - 1 : 5);
+    setCurrentIndex(
+      data.length < 5 ? (data.length > 0 ? data.length - 1 : 0) : 5
+    );
   }, [events]);
 
   console.log(currentIndex);

@@ -14,6 +14,7 @@ import { selectUser } from "../../store/user/userSlice";
 import SelectAutoWidth from "../select-option/select-auto-width.component";
 
 import { CategoryEnum } from "./categoryEnum";
+import { validateState } from "./validState";
 
 const initialLocation = {
   address: "",
@@ -65,6 +66,13 @@ const EventCreation = () => {
     if (!isValidZipCode(eventLocation.zipCode)) {
       alert("Please make sure ZIP code is correct.");
       return;
+    }
+
+    if (validateState(eventLocation.state) == null) {
+      alert("Please enter a valid state.");
+      return;
+    } else {
+      eventLocation.state = validateState(eventLocation.state);
     }
 
     if (startDateAndTime >= endDateAndTime) {
@@ -165,7 +173,7 @@ const EventCreation = () => {
           onChange={(event) => setEventDescription(event.target.value)}
           maxRows={4}
           sx={{ width: "300px" }}
-          inputProps={{ maxLength: 80 }}
+          inputProps={{ maxLength: 200 }}
           required={true}
         />
 

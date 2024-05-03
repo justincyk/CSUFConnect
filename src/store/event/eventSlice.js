@@ -148,4 +148,17 @@ export const selectOrganizedEvents = createSelector(
   }
 );
 
+export const selectEventById = (eventId) => (state) => {
+  const event = state.event.events.find((event) => event.id == eventId);
+  return event;
+};
+
+export const selectEventDetails = createSelector([selectEvents], (events) => {
+  return events.map((event) => ({
+    id: event.id,
+    name: event.name,
+    category: event.category,
+  }));
+});
+
 export default eventSlice.reducer;

@@ -6,3 +6,7 @@
   margin: 0;
   padding: 0;
 }
+
+.base-Popper-root.MuiAutocomplete-popper.css-1s5lphu-MuiPopper-root-MuiAutocomplete-popper {
+  z-index: 999999;
+}

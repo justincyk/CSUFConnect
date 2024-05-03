@@ -87,6 +87,8 @@ const EventsSlideshow = ({ category, events }) => {
                 eventShortDescription={event.eventShortDescription}
                 eventDate={formatDate(event.startDateAndTime)}
                 key={event.id}
+                eventCategory={category}
+                eventID={event.id}
                 imgURL={event.image}
               />
             ))

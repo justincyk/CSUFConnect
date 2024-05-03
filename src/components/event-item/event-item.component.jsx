@@ -53,7 +53,10 @@ export default function EventItemCard({
       <CardMedia
         component="img"
         height="194"
-        image={imgURL}
+        image={
+          imgURL ??
+          "https://csufconnect-images-bucket.s3.amazonaws.com/eventNoPicture.svg"
+        }
         alt={eventShortDescription ?? "Event Picture"}
         onClick={goToEventHandler}
         style={{ cursor: "pointer" }}
@@ -63,14 +66,6 @@ export default function EventItemCard({
           {eventShortDescription}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-      </CardActions>
     </Card>
   );
 }
