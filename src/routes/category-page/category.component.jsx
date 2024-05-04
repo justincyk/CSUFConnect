@@ -66,7 +66,7 @@ const Category = () => {
   const data = events[category] ?? mockData;
 
   const [currentIndex, setCurrentIndex] = useState(
-    data.length < 5 ? data.length - 1 : 5
+    data.length < 5 ? (data.length > 0 ? data.length - 1 : 0) : 5
   );
 
   useEffect(() => {
@@ -75,7 +75,6 @@ const Category = () => {
     );
   }, [events]);
 
-  console.log(currentIndex);
   return (
     <CategoryContainer>
       <CategoryTitle>{category} Events</CategoryTitle>
