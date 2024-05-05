@@ -1,4 +1,5 @@
 # Project: CSUF Connect
+## Frontend Portion
 
 ### Developer: Justin Kim
 
